@@ -3,7 +3,7 @@ import { Button } from "../Button/Button";
 import { useState } from "react";
 import { ButtonContainer, LiElement, PElement } from "./StyledItem";
 
-export function Item({ task, done, delBtn}) {
+export function Item({ task, done, delBtn, doneBtn}) {
 	const [isDone, setIsDone] = useState(done);
 	
 	return (
@@ -12,7 +12,7 @@ export function Item({ task, done, delBtn}) {
 			<LiElement>
 				<PElement $done={isDone}>{task}</PElement>
 				<ButtonContainer>
-					{!isDone && <Button onClick={() => setIsDone(true)}>Zrobione</Button>}
+					{!isDone && <Button onClick={doneBtn}>Zrobione</Button>}
 					<Button
 						onClick={delBtn}>
 						Usuń

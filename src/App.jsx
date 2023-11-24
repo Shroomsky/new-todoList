@@ -11,21 +11,32 @@ const Tasks = [
 export function App() {
 	const [tasks, setTasks] = useState(Tasks);
 
-	function removeTask(id) {
-		setTasks(tasks.filter((task) => !(task.id == id)));
-	}
-	
-
 	return (
 		<main>
 			<Heading tasks={tasks} setter={setTasks}></Heading>
 			<ul>
-				{tasks.map((t) => (
+				{tasks.map(({ name, id, isDone }) => (
 					<Item
-						task={t.name}
-						key={t.id}
-						done={t.isDone}
-						delBtn={() => removeTask(t.id)}></Item>
+						task={name}
+						key={id}
+						done={isDone}
+						doneBtn={() => {
+							setTasks((prev) =>
+								prev.map((task) => {
+									if (task.id !== id) {
+										return task;
+									} else {
+										return {
+											...task,
+											done: true,
+										};
+									}
+								})
+							);
+						}}
+						delBtn={() => {
+							setTasks(tasks.filter((task) => !(task.id == id)));
+						}}></Item>
 				))}
 			</ul>
 		</main>

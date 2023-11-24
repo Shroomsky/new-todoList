@@ -19,13 +19,13 @@ export function Heading({ tasks, setter }) {
 		} else {
 			setInputError(false);
 			setIsInputActive((prevState) => !prevState);
-			setter(() => [
+			setter((prev) => [
 				{
 					id: Math.floor(Math.random() * 100),
 					name: inputValue,
 					isDone: false,
 				},
-				...tasks,
+				...prev,
 			]);
 			setInputValue("");
 		}
