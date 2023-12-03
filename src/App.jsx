@@ -11,6 +11,25 @@ const Tasks = [
 export function App() {
 	const [tasks, setTasks] = useState(Tasks);
 
+	function handleDoneBtnClik(id){
+
+		setTasks((prev) => prev.map((task) => {
+			if (task.id !== id) {
+				console.log("nie zrobione")
+				return task;
+			} else {
+				console.log(`${id} Zrobione`)
+				return {
+					...task,
+					isDone: true,
+				};
+			}
+		})
+	);
+
+	}
+
+	console.log(tasks)
 	return (
 		<main>
 			<Heading tasks={tasks} setter={setTasks}></Heading>
@@ -20,20 +39,7 @@ export function App() {
 						task={name}
 						key={id}
 						done={isDone}
-						doneBtn={() => {
-							setTasks((prev) =>
-								prev.map((task) => {
-									if (task.id !== id) {
-										return task;
-									} else {
-										return {
-											...task,
-											done: true,
-										};
-									}
-								})
-							);
-						}}
+						doneBtn={() => handleDoneBtnClik(id)}
 						delBtn={() => {
 							setTasks(tasks.filter((task) => !(task.id == id)));
 						}}></Item>
